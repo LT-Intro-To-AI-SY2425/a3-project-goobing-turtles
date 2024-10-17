@@ -1,16 +1,22 @@
-def get_title(movie: Tuple[str, str, int, List[str]]) -> str:
-    return movie[0]
+#  Include the book database, named book_db
+from books import book_db
+from match import match
+from typing import List, Tuple, Callable, Any
 
 
-def get_author(movie: Tuple[str, str, int, List[str]]) -> str:
-    return movie[1]
-
-def get_genre(movie: Tuple[str, str, int, List[str]]) -> str:
-    return movie[1]
+def get_title(book: Tuple[str, str, str, int]) -> str:
+    return book[0]
 
 
-def get_year(movie: Tuple[str, str, int, List[str]]) -> int:
-    return movie[2]
+def get_author(book: Tuple[str, str, str, int]) -> str:
+    return book[1]
+
+def get_genre(book: Tuple[str, str, str, int]) -> str:
+    return book[2]
+
+
+def get_year(book: Tuple[str, str, str, int]) -> int:
+    return book[3]
 
 
 
@@ -20,134 +26,152 @@ def get_year(movie: Tuple[str, str, int, List[str]]) -> int:
 
 
 def title_by_year(matches: List[str]) -> List[str]:
-    """Finds all movies made in the passed in year
+    """Finds all books made in the passed in year
 
     Args:
         matches - a list of 1 string, just the year. Note that this year is passed as a
             string and should be converted to an int
 
     Returns:
-        a list of movie titles made in the passed in year
+        a list of book titles made in the passed in year
     """
     year = int(matches[0])
     result = []
-    for movie in movie_db:
-        # print(get_year(movie))
-        if get_year(movie) == year:
-            result.append(get_title(movie))
+    for book in book_db:
+        # print(get_year(book))
+        if get_year(book) == year:
+            result.append(get_title(book))
+
+    return result
+
+def genre_by_year(matches: List[str]) -> List[str]:
+    """Finds all books made in the passed in year
+
+    Args:
+        matches - a list of 1 string, just the year. Note that this year is passed as a
+            string and should be converted to an int
+
+    Returns:
+        a list of book titles made in the passed in year
+    """
+    genre = int(matches[0])
+    result = []
+    for book in book_db:
+        if get_genre(book) == genre:
+            result.append(get_genre(book))
 
     return result
 
 
 def title_by_year_range(matches: List[str]) -> List[str]:
-    """Finds all movies made in the passed in year range
+    """Finds all books made in the passed in year range
 
     Args:
         matches - a list of 2 strings, the year beginning the range and the year ending
-            the range. For example, to get movies from 1991-1994 matches would look like
+            the range. For example, to get books from 1991-1994 matches would look like
             this - ["1991", "1994"] Note that these years are passed as strings and
             should be converted to ints.
 
     Returns:
-        a list of movie titles made during those years, inclusive (meaning if you pass
-        in ["1991", "1994"] you will get movies made in 1991, 1992, 1993 & 1994)
+        a list of book titles made during those years, inclusive (meaning if you pass
+        in ["1991", "1994"] you will get books made in 1991, 1992, 1993 & 1994)
     """
     start_year = int(matches[0])
     end_year = int(matches[1])
     result = []
-    for movie in movie_db:
-        if start_year <= get_year(movie) <= end_year:
-            result.append(get_title(movie))
+    for book in book_db:
+        if start_year <= get_year(book) <= end_year:
+            result.append(get_title(book))
     return result
 
 
 def title_before_year(matches: List[str]) -> List[str]:
-    """Finds all movies made before the passed in year
+    """Finds all books made before the passed in year
 
     Args:
         matches - a list of 1 string, just the year. Note that this year is passed as a
             string and should be converted to an int
 
     Returns:
-        a list of movie titles made before the passed in year, exclusive (meaning if you
-        pass in 1992 you won't get any movies made that year, only before)
+        a list of book titles made before the passed in year, exclusive (meaning if you
+        pass in 1992 you won't get any books made that year, only before)
     """
     before_year  = int(matches[0]) 
     result = []
-    for movie in movie_db:
-        if before_year > get_year(movie):
-            result.append(get_title(movie))
+    for book in book_db:
+        if before_year > get_year(book):
+            result.append(get_title(book))
     return result 
 
 
 def title_after_year(matches: List[str]) -> List[str]:
-    """Finds all movies made after the passed in year
+    """Finds all books made after the passed in year
 
     Args:
         matches - a list of 1 string, just the year. Note that this year is passed as a
             string and should be converted to an int
 
     Returns:
-        a list of movie titles made after the passed in year, exclusive (meaning if you
-        pass in 1992 you won't get any movies made that year, only after)
+        a list of book titles made after the passed in year, exclusive (meaning if you
+        pass in 1992 you won't get any books made that year, only after)
     """
     after_year = int(matches[0])
     result = []
-    for movie in movie_db:
-        if after_year < get_year(movie):
-            result.append(get_title(movie))
+    for book in book_db:
+        if after_year < get_year(book):
+            result.append(get_title(book))
     return result
 
 
 def author_by_title(matches: List[str]) -> List[str]:
-    """Finds author of movie based on title
+    """Finds author of book based on title
 
     Args:
         matches - a list of 1 string, just the title
 
     Returns:
-        a list of 1 string, the author of the movie
+        a list of 1 string, the author of the book
     """
     title = matches[0]
     result = []
-    for movie in movie_db:
-        if title == get_title(movie):
-            result.append(get_author(movie))
+    for book in book_db:
+        if title == get_title(book):
+            result.append(get_author(book))
     return result
 
 
 def title_by_author(matches: List[str]) -> List[str]:
-    """Finds movies directed by the passed in author
+    """Finds books directed by the passed in author
 
     Args:
         matches - a list of 1 string, just the author
 
     Returns:
-        a list of movies titles directed by the passed in author
+        a list of books titles directed by the passed in author
     """
-    director = matches[0]
+    author = matches[0]
     result = []
-    for movie in movie_db:
-        if director == get_author(movie):
-            result.append(get_title(movie))
+    for book in book_db:
+        if author == get_author(book):
+            result.append(get_title(book))
     return result
 
 
 
 def year_by_title(matches: List[str]) -> List[int]:
-    """Finds year of passed in movie title
+    """Finds year of passed in book title
 
     Args:
-        matches - a list of 1 string, just the movie title
+        matches - a list of 1 string, just the book title
 
     Returns:
-        a list of one item (an int), the year that the movie was made
+        a list of one item (an int), the year that the book was made
     """
     title = matches[0]
     result = []
-    for movie in movie_db:
-        if title == get_title(movie):
-            result.append(get_year(movie))
+    for book in book_db:
+        if title == get_title(book):
+            result.append(get_year(book))
     return result
 
 
@@ -160,18 +184,16 @@ def bye_action(dummy: List[str]) -> None:
 # The pattern-action list for the natural language query system A list of tuples of
 # pattern and action It must be declared here, after all of the function definitions
 pa_list: List[Tuple[List[str], Callable[[List[str]], List[Any]]]] = [
-    (str.split("what movies were made in _"), title_by_year),
-    (str.split("what movies were made between _ and _"), title_by_year_range),
-    (str.split("what movies were made before _"), title_before_year),
-    (str.split("what movies were made after _"), title_after_year),
-    # note there are two valid patterns here two different ways to ask for the director
-    # of a movie
-    (str.split("who directed %"), director_by_title),
-    (str.split("who was the director of %"), director_by_title),
-    (str.split("what movies were directed by %"), title_by_director),
-    (str.split("who acted in %"), actors_by_title),
-    (str.split("when was % made"), year_by_title),
-    (str.split("in what movies did % appear"), title_by_actor),
+    (str.split("what books were written in _"), title_by_year),
+    (str.split("what books were written between _ and _"), title_by_year_range),
+    (str.split("what books were written before _"), title_before_year),
+    (str.split("what books were written after _"), title_after_year),
+    # note there are two valid patterns here two different ways to ask for the author
+    # of a book
+    (str.split("who wrote %"), author_by_title),
+    (str.split("who was the author of %"), author_by_title),
+    (str.split("what books were written by %"), title_by_author),
+    (str.split("when was % released"), year_by_title),
     (["bye"], bye_action),
 ]
 
