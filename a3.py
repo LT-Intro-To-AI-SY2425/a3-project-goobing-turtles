@@ -139,6 +139,21 @@ def author_by_title(matches: List[str]) -> List[str]:
             result.append(get_author(book))
     return result
 
+def author_by_genre(matches: List[str]) -> List[str]:
+    """Finds author of book based on genre
+
+    Args:
+        matches - a list of 1 string, just the genre
+
+    Returns:
+        a list of 1 string, the author of the book
+    """
+    genre = matches[0]
+    result = []
+    for book in book_db:
+        if genre == get_genre(book):
+            result.append(get_author(book))
+    return result
 
 def title_by_author(matches: List[str]) -> List[str]:
     """Finds books directed by the passed in author
