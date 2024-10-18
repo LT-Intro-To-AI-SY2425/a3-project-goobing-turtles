@@ -237,3 +237,8 @@ def search_pa_list(src: List[str]) -> List[str]:
         
     result = ["I don't understand"]
     return result 
+
+assert isinstance(title_by_author(["jk rowling"]), list), "title_by_author not returning a list"
+assert sorted(title_by_author(["jk rowling"])) == sorted(
+    ["harry potter"]
+), "failed title_by_author test"

@@ -84,7 +84,7 @@ book_db: List[Tuple[str, str, str, int]] =[
         "homer",
         "myth",
         -650
-    )
+    ),
     (
         "the catcher in the rye",
         "J. D. salinger",
