@@ -86,7 +86,10 @@ book_db: List[Tuple[str, str, str, int]] =[
         -650
     )
     (
-        "don quihotes nsffafainai"
+        "the catcher in the rye",
+        "J. D. salinger",
+        "Literary realism",
+        1951
     )
 
 ] #title author genre year
